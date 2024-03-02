@@ -1,4 +1,4 @@
-<h1 align="center">cripixo/dotfiles</h1>
+<h1 align="center">criptixo/dotfiles</h1>
 
 <img src="/screenshots/screenshot1.png" width="100%" />
 
