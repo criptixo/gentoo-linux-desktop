@@ -1,0 +1,22 @@
+* {
+  border: none;
+  border-radius: 0px;
+  font-family: "Hack Nerd Font";
+  font-size: 12pt;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0px 0px;
+  padding: 0px 4px;
+}
+
+window#waybar {
+  background: rgba(26,27,38,0.9);
+}
+
+#workspaces button.focused {
+  background-color: #9aa5ce;
+}
+
+#workspaces button.urgent {
+  background-color: #f7768e;
+}
