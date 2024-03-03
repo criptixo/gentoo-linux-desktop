@@ -12,6 +12,7 @@ This is where I keep all of my system dotfiles.
 - GTK Theme: [Tokto Night Dark](https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme)
 - Colorscheme: [Tokyo Night Dark](https://github.com/enkia/tokyo-night-vscode-theme)
 - Icons :[Papirus Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
+- Cursor:[Perspective](https://aur.archlinux.org/packages/xcursor-perspective)
 - I don't use any QT theme because the only qt build software that i currently use is OBS-Studio
 
 
