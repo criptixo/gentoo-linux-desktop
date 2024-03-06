@@ -8,7 +8,7 @@ client.focused "#ffffff" "#ffffff" "#ffffff" "#ffffff"
 
 # Workspace managment: swaymsg -t get_tree | less
 assign [class="steam*"] 5
-assign [app_id="rhythmbox"] 2
+assign [app_id="lollypop"] 2
 assign [class="vesktop"] 2
 assign [class="Code"] 3
 
@@ -16,7 +16,7 @@ assign [class="Code"] 3
 set $opacity 0.97
 for_window [app_id="foot"] opacity $opacity
 for_window [class="vesktop"] opacity $opacity
-for_window [app_id="rhythmbox"] opacity $opacity
+for_window [app_id="lollypop"] opacity $opacity
 for_window [class="Code"] opacity $opacity
 
 # Variables
@@ -75,10 +75,10 @@ bindsym $mod+space floating toggle
 
 # Resizing containers:
 mode "resize" {
-    bindsym $left resize shrink width 50px
-    bindsym $down resize grow height 50px
-    bindsym $up resize shrink height 50px
-    bindsym $right resize grow width 50px
+    bindsym $left resize shrink width 100px
+    bindsym $down resize grow height 100px
+    bindsym $up resize shrink height 100px
+    bindsym $right resize grow width 100px
 
     # Return to default mode
     bindsym Escape mode "default"
