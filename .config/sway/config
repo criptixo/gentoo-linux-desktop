@@ -1,23 +1,24 @@
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=compositor_name
+# Important
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-exec_always autotiling
+# Output: swaymsg -t get_outputs
+output DP-3 mode 1920x1080@75Hz
 
-default_border pixel 2
-client.focused "#ffffff" "#ffffff" "#ffffff" "#ffffff"
+# Theming
+default_border pixel 1
+client.focused #ffffff #ffffff #000000
+client.unfocused #00000000 #222222 #888888
+client.urgent #ffffff #900000 #ffffff
+font pango:terminus Regular 12
 
 # Workspace managment: swaymsg -t get_tree | less
 assign [class="steam*"] 5
-assign [app_id="lollypop"] 2
-assign [class="vesktop"] 2
-assign [class="Code"] 3
 
 # Opacity: swaymsg -t get_outputs | less
-set $opacity 0.97
+set $opacity 0.9
 for_window [app_id="foot"] opacity $opacity
-for_window [class="vesktop"] opacity $opacity
-for_window [app_id="lollypop"] opacity $opacity
-for_window [class="Code"] opacity $opacity
+for_window [class="rhythmbox"] opacity $opacity
 
 # Variables
 set $mod Mod4
@@ -26,16 +27,13 @@ set $down j
 set $up k
 set $right l
 
-# Output configuration: swaymsg -t get_outputs
-output DP-3 mode 1920x1080@75Hz
-
 # Key bindings
 bindsym $mod+Return exec foot
 bindsym $mod+q kill
-bindsym $mod+d exec wofi
+bindsym $mod+d exec $drun tofi-drun | xargs swaymsg exec --
 floating_modifier $mod normal
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit sway?' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you want to exit sway?' -B 'Yes' 'swaymsg exit'
 
 # Move your focus around
 bindsym $mod+$left focus left
@@ -67,9 +65,6 @@ bindsym $mod+Shift+5 move container to workspace number 5
 bindsym $mod+Tab workspace next_on_output
 bindsym $mod+Shift+Tab workspace prev_on_output
 
-# Make the current focus fullscreen
-bindsym $mod+f fullscreen
-
 # Toggle the current focus between tiling and floating mode
 bindsym $mod+space floating toggle
 
@@ -79,37 +74,51 @@ mode "resize" {
     bindsym $down resize grow height 100px
     bindsym $up resize shrink height 100px
     bindsym $right resize grow width 100px
-
-    # Return to default mode
     bindsym Escape mode "default"
     }
-
 bindsym $mod+r mode "resize"
 
-# screenshots
-bindsym $mod+Shift+s exec grim -l 1 -t png ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png
-bindsym $mod+s exec grim -l 1 -t png -g "$(slurp)" ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png 
+# Toggle fullscreen mode
+bindsym $mod+f fullscreen
 
-# media keys
-bindsym xf86audioraisevolume exec pamixer -i 10
-bindsym xf86audiolowervolume exec pamixer -d 10
-bindsym xf86audiomute exec pamixer -t
+# Screenshots
+bindsym $mod+Shift+s exec grim -l 1 -t png ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png
+bindsym $mod+s exec grim -l 1 -t png -g "$(slurp)" ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png
+
+# Audio Control
+bindsym XF86audioraisevolume exec pamixer -ui 10 
+bindsym XF86audiolowervolume exec pamixer -ud 10 
+bindsym XF86audiomute exec pamixer --toggle-mute 
 bindsym xf86audioplay exec playerctl play-pause 
 bindsym xf86audionext exec playerctl next
 bindsym xf86audioprev exec playerctl previous
 bindsym xf86audiostop exec playerctl stop
 
-# cliphist
-exec_always wl-paste --type text --watch cliphist store  
-bindsym $mod+v exec cliphist list | wofi --dmenu | cliphist decode | wl-copy
+# Misc
+xwayland enable
+workspace_layout default
 
-# auto-start
-exec swaybg -m fill -i ~/.config/sway/miku.jpg
-exec waybar 
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-exec mako
-exec blueman-applet 
-exec nm-applet --indicator &
-exec nicotine -s
-exec vesktop --start-minimized
-exec steam -silent
+# Cliphist
+exec_always wl-paste --type text --watch cliphist store  
+bindsym $mod+v exec cliphist list | tofi | cliphist decode | wl-copy
+
+# Auto-start
+exec swaybg -m fill -i ~/.config/sway/miku.png & 
+exec mako &
+exec steam -silent &
+
+# Status Bar:
+bar {
+    mode dock
+    height 20
+    position bottom
+    status_command ~/.config/sway/bar.sh 
+    colors {
+        statusline #ffffff
+        background #000000
+        inactive_workspace #000000 #000000 #ffffff
+	focused_workspace #000000 #ffffff #000000
+	urgent_workspace #2f343a #900000 #ffffff
+	separator #00000000
+	}
+}
