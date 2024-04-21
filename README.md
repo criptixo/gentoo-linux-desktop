@@ -10,12 +10,12 @@ This is where I keep all of my system dotfiles.
 
 ## Theme & Colorscheme
 
-- GTK Theme: [Tokto Night Dark](https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme)
-- Colorscheme: [Tokyo Night Dark](https://github.com/enkia/tokyo-night-vscode-theme)
-- Icons :[Papirus Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
+- GTK Theme: [placeholder](placeholder)
+- Colorscheme: [placeholder](placeholder)
+- Icons :[placeholder](placeholder)
 - Font: [Terminus](https://terminus-font.sourceforge.net/)
 - I don't use any QT theme because the only qt6 build software that i currently use is qutebrowser and OBS-Studio.
-- I don't use any curosr theme.
+- I don't use any custom curosr.
 
 
 ## Software
