@@ -29,3 +29,4 @@ This is where I keep all of my system dotfiles.
 - File Manager: [ranger](https://github.com/gokcehan/lf)
 - Notifications: [mako](https://github.com/emersion/mako)
 - Video Player: [mpv](https://github.com/mpv-player/mpv)
+- Music Player: [rhythmbox] (https://gitlab.gnome.org/GNOME/rhythmbox)
