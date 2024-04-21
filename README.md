@@ -30,3 +30,4 @@ This is where I keep all of my system dotfiles.
 - Notifications: [mako](https://github.com/emersion/mako)
 - Video Player: [mpv](https://github.com/mpv-player/mpv)
 - Music Player: [rhythmbox] (https://gitlab.gnome.org/GNOME/rhythmbox)
+- BitTorrent: [transmission] (https://github.com/transmission/transmission)
