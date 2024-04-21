@@ -13,23 +13,19 @@ This is where I keep all of my system dotfiles.
 - GTK Theme: [Tokto Night Dark](https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme)
 - Colorscheme: [Tokyo Night Dark](https://github.com/enkia/tokyo-night-vscode-theme)
 - Icons :[Papirus Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
-- Cursor:[Perspective](https://aur.archlinux.org/packages/xcursor-perspective)
-- I don't use any QT theme because the only qt build software that i currently use is OBS-Studio
-
+- Font: [Terminus](https://terminus-font.sourceforge.net/)
+- I don't use any QT theme because the only qt6 build software that i currently use is qutebrowser and OBS-Studio.
+- I don't use any curosr theme.
 
 
 ## Software
 
 - Operating System: [Arch Linux](https://archlinux.org/)
 - Window Manager: [Sway](https://github.com/swaywm/sway)
-- Status Bar: [Waybar](https://github.com/Alexays/Waybar)
+- Status Bar: [sway-bar](https://github.com/swaywm/sway)
 - Terminal: [foot](https://codeberg.org/dnkl/foot)
-- Launcher: [wofi](https://sr.ht/~scoopta/wofi/)
-- Browser: [Chromium](https://www.chromium.org/Home/)
-- Browser Extension: 
-- File Manager: [ranger](https://github.com/ranger/ranger)
+- Launcher: [tofi](https://github.com/philj56/tofi)
+- Browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser)
+- File Manager: [ranger](https://github.com/gokcehan/lf)
 - Notifications: [mako](https://github.com/emersion/mako)
-- Image Viewer: [Viewminor](https://github.com/hellosiyan/Viewnior)
 - Video Player: [mpv](https://github.com/mpv-player/mpv)
-- PDF/EPUB Viewer: [MuPDF](https://mupdf.com/)
-- Fonts: [Hack Nerd](https://archlinux.org/packages/extra/any/ttf-hack-nerd/)
