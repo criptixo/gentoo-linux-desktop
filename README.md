@@ -31,3 +31,4 @@ This is where I keep all of my system dotfiles.
 - Video Player: [mpv](https://github.com/mpv-player/mpv)
 - Music Player: [rhythmbox](https://gitlab.gnome.org/GNOME/rhythmbox)
 - BitTorrent: [transmission](https://github.com/transmission/transmission)
+- Video Editor: [Pitivi](https://github.com/pitivi/pitivi)
