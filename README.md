@@ -1,7 +1,6 @@
 <h1 align="center">My Arch Linux System</h1>
 
 <img src="/screenshots/screenshot1.png" width="100%" />
-<img src="/screenshots/screenshot2.png" width="100%" />
 
 # Theme & Colorscheme
 
