@@ -21,7 +21,7 @@
 - Decrypting and mounting raid on boot
 - Uses run0
 
-## paritioning
+## 1.Paritioning
 `lsblk`
 
 `cfidsk /dev/sda`
