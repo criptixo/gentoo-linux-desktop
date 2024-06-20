@@ -228,37 +228,26 @@ user = "criptixo"
 ## audio 
                     
 `run0 pacman -S wireplumber pipewire pipewire-pulse pipewire-audio pipewire-jack helvum pavucontrol`
+
 `systemctl --user enable --now pipewire-pulse.socket`
                     
-## video player
-`run0 pacman -S mpv` 
-                    
-### music player 
-run0 pacman -S rhythmbox
+## docker 
+`run0 pacman -S docker`
 
-### screen recorder 
-run0 pacman -S obs-studio
+`run0 systemctl enable docker.socket`
+
+`run0 usermod -aG docker criptixo`
+
+`run0 chmod 666 /var/run/docker.sock`
+
+## media players
+`run0 pacman -S mpv rhythmbox`
+
+## screen recorder 
+`run0 pacman -S obs-studio`
                     
-### gaming 
-run0 pacman -S vulkan-radeon lib32-vulkan-radeon radeontop xf86-video-amdgpu steam
+## set up gaming via steam
+`run0 pacman -S vulkan-radeon lib32-vulkan-radeon radeontop xf86-video-amdgpu steam`
                     
-### web browsing 
-run0 pacman -S qutebrowser
-                    
-### torrenting 
-run0 pacman -S transmission-gtk
-                    
-### music
-run0 pacman -S nicotine
-                    
-### video editing 
-run0 pacman -S pitivi
-                    
-### image editing 
-run0 pacman -S gimp
-                    
-### docker 
-run0 pacman -S docker 
-run0 systemctl enable docker.socket
-run0 usermod -aG docker criptixo
-run0 chmod 666 /var/run/docker.sock
+## install misc software
+`run0 pacman -S qutebrowser transmission-gtk nicotine pitivi gimp`
