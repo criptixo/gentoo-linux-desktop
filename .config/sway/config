@@ -1,12 +1,14 @@
-# Important
+# Authentication
+exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+
+# Screensharing
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # Output: swaymsg -t get_outputs
-output DP-3 mode 1920x1080@75Hz
+output HDMI-A-1 mode 1920x1080@75Hz
 
 # Theming
-default_border pixel 1
+default_border pixel 2
 client.focused #ffffff #ffffff #000000
 client.unfocused #00000000 #222222 #888888
 client.urgent #ffffff #900000 #ffffff
@@ -28,10 +30,10 @@ set $up k
 set $right l
 
 # Key bindings
+floating_modifier $mod normal
 bindsym $mod+Return exec foot
 bindsym $mod+q kill
 bindsym $mod+d exec $drun tofi-drun | xargs swaymsg exec --
-floating_modifier $mod normal
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you want to exit sway?' -B 'Yes' 'swaymsg exit'
 
@@ -94,8 +96,7 @@ bindsym xf86audionext exec playerctl next
 bindsym xf86audioprev exec playerctl previous
 bindsym xf86audiostop exec playerctl stop
 
-# Misc
-xwayland enable
+# Layout
 workspace_layout default
 
 # Cliphist
@@ -103,9 +104,8 @@ exec_always wl-paste --type text --watch cliphist store
 bindsym $mod+v exec cliphist list | tofi | cliphist decode | wl-copy
 
 # Auto-start
-exec swaybg -m fill -i ~/.config/sway/miku.png & 
+exec swaybg -m fill -i ~/.config/sway/miku.jpg & 
 exec mako &
-exec steam -silent &
 
 # Status Bar:
 bar {
