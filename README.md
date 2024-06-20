@@ -38,42 +38,63 @@ This is where I keep all of my system dotfiles.
 ## My Arch Linux System
 
 ## paritioning
-lsblk
-cfidsk /dev/sda
+`lsblk`
+
+`cfidsk /dev/sda`
+
 <img src="/screenshots/lsblk.png" width="100%" />
 
 ## setup lvm 
-pvcreate /dev/sda2
-vgcreate vg0 /dev/sda2
-lvcreate -l 100%FREE -n cryptroot vg0
+`pvcreate /dev/sda2`
+
+`vgcreate vg0 /dev/sda2`
+
+`lvcreate -l 100%FREE -n cryptroot vg0`
 
 ## setup luks
-cryptsetup luksFormat /dev/vg0/cryptroot
-cryptsetup open /dev/vg0/cryptroot root
+`cryptsetup luksFormat --type luks2 --cipher aes-xts-plain64 --key-size 256 --hash sha256 /dev/vg0/cryptroot`
+
+`cryptsetup open /dev/vg0/cryptroot root`
         
 ## formatting
-mkfs.fat -F32 /dev/sda1                    
-mkfs.ext4 /dev/mapper/root
+`mkfs.fat -F32 /dev/sda1`               
+
+`mkfs.ext4 /dev/mapper/root`
 
 ## mounting
-mount /dev/mapper/root /mnt
-mount /dev/sda1 /mnt/boot
+`mount /dev/mapper/root /mnt`
+
+`mount /dev/sda1 /mnt/boot`
                     
 ## setting up the chroot
-pacstrap -K /mnt base linux linux-firmware intel-ucode lvm2 dhcpcd neovim man bash
-genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
+`pacstrap -K /mnt base linux linux-firmware intel-ucode lvm2 dhcpcd neovim man bash`
+
+`genfstab -U /mnt >> /mnt/etc/fstab`
+
+`arch-chroot /mnt`
 
 ## basic system setup
-ln -sf /usr/share/Africa/Algeries
-hwclock --systohc
-locale-gen
-nvim /etc/locale.conf
-nvim /etc/hostname
-passwd
+`ln -sf /usr/share/Africa/Algeries`
+
+`hwclock --systohc`
+
+`nvim /etc/locale.gen`
+```
+...
+en_US.UTF-8 UTF-8
+...
+```
+
+`locale-gen` 
+
+`localectl set-locale LANG=en_US.UTF-8`
+
+`hostnamectl hostname navi`
+
+`passwd`
 
 ## setup mkinitcpio
-nvim /etc/mkinitcpio.conf
+`nvim /etc/mkinitcpio.conf`
 ```
 ...
 HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block lvm2 encrypt filesystems fsck)
@@ -81,17 +102,21 @@ HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont bl
 COMPRESSION=cat       
 ...
 ```
-mkinitcpio -P
+
+`mkinitcpio -P`
 
 ## bootloader setup
-bootctl install
-nvim /boot/loader/loader.conf
+`bootctl install`
+
+`nvim /boot/loader/loader.conf`
+
 ```
 default arch.conf
 timeout 0
 ```
 
-nvim /boot/loader/entries/arch.conf
+`nvim /boot/loader/entries/arch.conf`
+
 ```
 title arch
 linux /vmlinuz-linux
@@ -99,7 +124,7 @@ initrd /initramfs-linux.img
 options cryptdevice=/dev/vg0/root:root root=/dev/mapper/root rw quiet loglevel=3 vt.global_cursor_default=0 mitigations=off
 ```
                 
-nvim /boot/loader/entries/arch-fallback.conf
+`nvim /boot/loader/entries/arch-fallback.conf`
 ```
 title arch
 linux /vmlinuz-linux
@@ -107,7 +132,9 @@ initrd /initramfs-linux.img
 options cryptdevice=/dev/vg0/root:root root=/dev/mapper/root rw quiet loglevel=3 vt.global_cursor_default=0 mitigations=off
 ```
 
-nvim /etc/fstab
+## fstab setup
+`nvim /etc/fstab`
+
 ```
 /dev/mapper/root				/         	ext4      	rw,relatime						0 1
 UUID=UUID      				/boot      	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
@@ -118,14 +145,16 @@ UUID=UUID      				/boot      	vfat      	rw,relatime,fmask=0022,dmask=0022,code
 login as root
 
 ## enble dhcpcd to get internet                    
-systemctl enable --now dhcpcd.service
+`systemctl enable --now dhcpcd.service`
 
 ## create a user
-useradd -m -G wheel video audio -s bash criptixo
-passwd criptixo
+`useradd -m -G wheel video audio -s bash criptixo`
+
+`passwd criptixo`
 
 ## configure pacman.conf
-nvim /etc/pacman.conf
+`nvim /etc/pacman.conf`
+
 ```
 ...
 Color
@@ -136,14 +165,15 @@ ParallelDownloads = 5
 Include = /etc/pacman.d/mirrorlist
 ...
 ```
+
 ## login as user
 exit
 
 ## install the software
-run0 pacman -S sway polkit swaybg grim mako foot terminus-font slurp playerctl xdg-desktop-portal xdg-portal-wlr mate-polkit cliphist gnome-themes-extra xdg-user-dirs xorg-xwayland
+`run0 pacman -S sway polkit swaybg grim mako foot terminus-font slurp playerctl xdg-desktop-portal xdg-portal-wlr mate-polkit cliphist gnome-themes-extra xdg-user-dirs xorg-xwayland`
 
 ## starting sway                    
-run0 nvim /usr/local/start-sway
+`run0 nvim /usr/local/start-sway`
 ```
 #!/bin/sh
 export XDG_SESSION_TYPE=wayland
@@ -163,35 +193,45 @@ QT_STYLE_OVERRIDE=Adwaita-Dark
 exec sway "$@"
 ```
 ## configuring auto-start
-run0 chmod +x /usr/local/bin/start-sway 
-pacman -S greetd
-run0 sudo nvim /etc/greetd/config.toml
+`run0 chmod +x /usr/local/bin/start-sway`
+
+`pacman -S greetd`
+
+`run0 sudo nvim /etc/greetd/config.toml`
 ```
 ...
 [initial_session]
 command = "/usr/local/bin/start-sway"
 user = "criptixo"
 ```
+
 ## adding the user dotfiles
-run0 pacman -S git
-git clone https://github.com/criptixo/dotfiles
-mkdir .config
-mv dotfiles/.config/* ~/.config/
+`run0 pacman -S git`
+
+`git clone https://github.com/criptixo/dotfiles`
+
+`mkdir .config`
+
+`mv dotfiles/.config/* ~/.config/`
                     
 ## application launcher
-run0 pacman -S base-devel
-cd
-git clone https://aur.archlinux.org/packages/tofi
-cd tofi
-run0 makepkg -si 
+`run0 pacman -S base-devel`
+
+`cd`
+
+`git clone https://aur.archlinux.org/packages/tofi`
+
+`cd tofi`
+
+`run0 makepkg -si` 
+  
+## audio 
                     
-### audio 
+`run0 pacman -S wireplumber pipewire pipewire-pulse pipewire-audio pipewire-jack helvum pavucontrol`
+`systemctl --user enable --now pipewire-pulse.socket`
                     
-run0 pacman -S wireplumber pipewire pipewire-pulse pipewire-audio pipewire-jack helvum pavucontrol
-systemctl --user enable --now pipewire-pulse.socket
-                    
-### video player
-run0 pacman -S mpv 
+## video player
+`run0 pacman -S mpv` 
                     
 ### music player 
 run0 pacman -S rhythmbox
