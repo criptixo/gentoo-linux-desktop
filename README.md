@@ -7,7 +7,7 @@
 # Overview
 
 ## key features:
-- Encrypted luks on lvm 
+- Encrypted LUKS on LVM 
 - Silent systemd-boot
 - Auto starting sway
 - Decrypting and mounting raid on boot
@@ -143,7 +143,11 @@ options cryptdevice=/dev/vg0/root:root root=/dev/mapper/root rw quiet loglevel=3
 UUID=UUID      				/boot      	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
 #/swapfile 					none 		swap 		defaults						      0 0
 ```
-            
+
+
+## adding raid system
+
+
 ## reboot
 login as root
 
