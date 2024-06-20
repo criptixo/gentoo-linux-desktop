@@ -18,6 +18,13 @@
 
 # System Install
 
+## key features:
+- Encrypted luks on lvm 
+- Silent systemd-boot
+- Auto starting sway
+- Decrypting and mounting raid on boot
+- Uses run0
+
 ## paritioning
 `lsblk`
 
