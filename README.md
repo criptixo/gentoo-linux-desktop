@@ -1,3 +1,5 @@
+![screenshot](./screenshots/rice.png)
+
 ## partitioning 
 `cfidsk /dev/sda`
 
