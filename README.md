@@ -47,12 +47,12 @@
     - [Add a user](#add-a-user)
     - [Configuring Network](#configuring-network)
   - [Sway-DE](#sway-de)
-   - [Post Installation](#post-installation)
-   - [Post Installation](#post-installation)
-   - [Post Installation](#post-installation)
-   - [Post Installation](#post-installation)
-   - [Post Installation](#post-installation)
-   - [Post Installation](#post-installation)
+   - [installing-sway](#installin-sway)
+   - [starting-sway](#starting-sway)
+   - [auto login](#auto-login)
+   - [audio](#audio)
+  - [extra software](#extra-software)
+   - [steam](#steam)
 
 
 ## Introduction
@@ -455,7 +455,7 @@ systemctl enable --now dhcpcd.service
 ```
 ## sway de
 
-### Setup a sway env
+### installing sway
 
 ```shell
 emerge -av swaybg foot grim slurp terminus-font mako wl-clipboard playerctl bemenu ranger neovim zip unzip
@@ -485,7 +485,7 @@ exec dbus-run-session sway "$@"
 ```shell
 chmod +x /usr/bin/start-sway
 ```
-### Setup autologin
+### autologin
 
 ```shell
 emerge -av gui-libs/greetd`
@@ -506,7 +506,15 @@ user = "criptixo"
 systemctl enable greetd.service
 ```
 
-### Setup steam 
+### audio
+```shell
+emerge -av pipewire libpulse wireplumber pulsemixer
+systemctl --user enable --now pipewire-pulse.socket wireplumber.service
+```
+
+## extra software
+
+### steam 
 ```shell
 emerge --ask --noreplace app-eselect/eselect-repository
 eselect repository enable steam-overlay
@@ -514,11 +522,6 @@ emerge --sync
 emerge steam-launcher
 ```
 
-### Setup audio
-```shell
-emerge -av pipewire libpulse wireplumber pulsemixer
-systemctl --user enable --now pipewire-pulse.socket wireplumber.service
-```
 
 ### Unfinished
 ```shell
