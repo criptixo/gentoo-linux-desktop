@@ -164,14 +164,53 @@ export PS1="(chroot) $PS1"
 ```
 
 ## configuring portage
-1.  text
-text
-text
+1.  make.conf
+```shell
+COMMON_FLAGS="-march=native -O3 -pipe -flto=7"
+CFLAGS="${COMMON_FLAGS}"
+CXXFLAGS="${COMMON_FLAGS}"
+FCFLAGS="${COMMON_FLAGS}"
+FFLAGS="${COMMON_FLAGS}"
+MAKEOPTS="-j5 -l5"
+USE="icu policykit webp gstreamer minimal screencast opengl openal opus png raw ffmpeg zeroconf tiff man dbus ipv4 vim-syntax lvm vaapi uefi wayland vulkan tray vdpau pulseaudio alsa asm avif bash-completion branding cak egl encode exif flac gif heif jpeg libnotify pgo graphite threads ithreads kms lto mp3 mp4 mpeg ogg x264 -seccomp -telemetry -ipv6"
+ACCEPT_LICENSE="*"
+L10N="en-US"
+LINGUAS="en_US"
+VIDEO_CARDS="amdgpu radeonsi"
+INPUT_DEVICES="libinput"
+CPU_FLAGS_X86="aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sse sse2 sse3 sse4_1 sse4_2 ssse3"
+```
+2. package.use
+```shell
+sys-apps/systemd 		    cryptsetup boot
+x11-libs/libdrm  		    video_cards_radeon
+sys-process/htop		    lm-sensors
+media-gfx/imv 			    -X
+www-client/qutebrowser 	    qt6 adblock widevine -pdf
+dev-python/PyQt6		    qml webchannel
+sys-libs/zlib			    minizip
+media-libs/libva		    X
+x11-libs/libxkbcommon 	    X
+media-libs/libglvnd		    X
+gui-apps/swaybg		        gdk-pixbuf
+gui-wm/sway			        X swaybar
+gui-libs/wlroots		    X
+media-libs/mesa  		    X
+sys-apps/dbus 			    X
+sys-apps/util-linux 	    cryptsetup 
+ibs/ncurses		            -minimal 
+x11-base/xwayland		    libei
+media-libs/libepoxy		    X
+media-video/pipewire	    sound-server pipewire-alsa echo-cancel -ffmpeg 
+media-libs/vulkan-loader    X layers
+media-libs/vulkan-layers	X
+dev-libs/bemenu			    -ncurses
+media-libs/libaom		    -examples 
+sys-libs/glibc			    stack-realign -mstackrealign
+x11-libs/cairo 			    X 
 
-2. text
-text
-text
-
+```
+TO DO:
 ```shell
 emerge -av dev-vcs/git
 cd /etc/portage/
@@ -182,8 +221,6 @@ git clone https://github.com/criptixo/gentoo-linux-desktop
 cd gentoo-linux-desktop
 mv gentoo-linux-desktop/portage/* /etc/portage/
 ```
-
-
 
 ### Choosing systemd profile
 update the snapshot with the latest version of the repository:
