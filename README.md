@@ -1,7 +1,7 @@
 # My Gentoo Linux System
 
 <h1 align="center">
-<img src="./screenshots/rice.png?raw=true" height="700">
+<img src="./screenshots/rice.png?raw=true">
 </h1>
 
 <p align="center">
