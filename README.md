@@ -94,6 +94,9 @@ efivar -l
 if NVME disk `/dev/nvme0n1`
 if SATA disk `/dev/sda/`
 
+```shell
+cfdisk /dev/sda
+```
 
 ### Create LVM 
 ```shell
