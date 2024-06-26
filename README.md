@@ -19,7 +19,7 @@
     </a>
 </p>
 
-Hey, this is my step step gentoo linux desktop install.
+Hey, this is my tested Step by Step complete gentoo linux desktop install.
 
 key features:
 
