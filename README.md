@@ -51,9 +51,11 @@
    - [starting-sway](#starting-sway)
    - [auto login](#auto-login)
    - [audio](#audio)
+  - [extra configurations](#extra-configurations)
   - [extra software](#extra-software)
    - [steam](#steam)
-
+   - [qutebrowser](#qutebrowser)
+- [last notes](#last-notes)
 
 ## Introduction
 
@@ -512,6 +514,8 @@ emerge -av pipewire libpulse wireplumber pulsemixer
 systemctl --user enable --now pipewire-pulse.socket wireplumber.service
 ```
 
+## extra configurations
+
 ## extra software
 
 ### steam 
@@ -522,6 +526,10 @@ emerge --sync
 emerge steam-launcher
 ```
 
+### qutebrowser
+```shell
+emerge --ask qutebrowser
+```
 
 ### Unfinished
 ```shell
