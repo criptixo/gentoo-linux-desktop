@@ -19,17 +19,17 @@
     </a>
 </p>
 
-My Gentoo linux system guide.
+Hey, this is my step step gentoo linux desktop install.
 
 key features:
 
-* 
-* 
-* 
+* luks on lvm allow for mounting other encrypted drives
+* systemd
+* systemd-boot as the bootloader
+* silent boot
+* optimized
 
-text text text. 
-
-> Stop before further reading.
+> Tested only on my hardware make adjustments to suit your needs.
 
 **Content**
 
