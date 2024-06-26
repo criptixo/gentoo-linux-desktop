@@ -1,0 +1,93 @@
+sys-apps/systemd 		policykit cryptsetup boot abi_x86_32
+x11-libs/libdrm  		video_cards_radeon
+www-client/qutebrowser 		qt6 adblock widevine -pdf
+dev-python/PyQt6		qml webchannel
+sys-libs/zlib			minizip abi_x86_32
+media-libs/libva		X abi_x86_32
+x11-libs/libxkbcommon 		X
+media-libs/libglvnd	 	X
+dev-qt/qtwebengine		vaapi screencast
+gui-apps/swaybg		        gdk-pixbuf
+gui-wm/sway			X swaybar
+gui-libs/wlroots		X
+x11-libs/libX11  		abi_x86_32
+x11-libs/libXau  		abi_x86_32
+x11-libs/libxcb  		abi_x86_32
+x11-libs/libXdmcp  		abi_x86_32
+virtual/opengl  		abi_x86_32
+media-libs/mesa  		X vaapi abi_x86_32
+dev-libs/expat  		abi_x86_32
+media-libs/libglvnd  		abi_x86_32
+x11-libs/libdrm  		abi_x86_32
+x11-libs/libxshmfence  		abi_x86_32
+x11-libs/libXext  		abi_x86_32
+x11-libs/libXxf86vm  		abi_x86_32
+x11-libs/libXfixes  		abi_x86_32
+app-arch/zstd  			abi_x86_32
+sys-devel/llvm  		abi_x86_32
+x11-libs/libXrandr  		abi_x86_32
+x11-libs/libXrender  		abi_x86_32
+dev-libs/libffi  		abi_x86_32
+dev-libs/libxml2  		abi_x86_32
+dev-libs/icu  			abi_x86_32
+sys-libs/gpm  			abi_x86_32
+virtual/libelf  		abi_x86_32
+dev-libs/elfutils  		abi_x86_32
+app-arch/bzip2  		abi_x86_32
+dev-libs/nspr  			abi_x86_32
+dev-libs/nss  			abi_x86_32
+net-libs/libndp  		abi_x86_32
+x11-libs/extest 		abi_x86_32
+dev-libs/libevdev 		abi_x86_32
+dev-libs/wayland 		abi_x86_32
+virtual/rust 			abi_x86_32
+x11-libs/libpciaccess 		abi_x86_32
+sys-devel/clang 		abi_x86_32
+media-libs/fontconfig 		abi_x86_32
+sys-libs/libudev-compat 	abi_x86_32
+media-libs/libpulse 		abi_x86_32
+media-libs/libsndfile 		abi_x86_32
+net-libs/libasyncns 		abi_x86_32
+sys-apps/dbus 			X abi_x86_32
+dev-libs/glib 			abi_x86_32
+dev-libs/libpcre2 		abi_x86_32
+sys-apps/util-linux 		cryptsetup abi_x86_32
+media-libs/flac 		abi_x86_32
+media-libs/libogg 		abi_x86_32
+media-libs/libvorbis 		abi_x86_32
+media-libs/opus 		abi_x86_32
+media-sound/lame 		abi_x86_32
+media-sound/mpg123-base 	abi_x86_32
+media-libs/freetype 		abi_x86_32
+media-libs/libpng 		abi_x86_32
+virtual/libintl 		abi_x86_32
+virtual/libudev 		abi_x86_32
+sys-apps/systemd-utils 		abi_x86_32
+sys-libs/libcap 		abi_x86_32
+sys-libs/pam 			abi_x86_32
+virtual/libiconv 		abi_x86_32
+x11-libs/xcb-util-keysyms 	abi_x86_32
+dev-db/sqlite			abi_x86_32
+sys-libs/readline		abi_x86_32
+sys-apps/lm-sensors		abi_x86_32
+dev-libs/libgcrypt		abi_x86_32
+app-arch/lz4			abi_x86_32
+dev-libs/libgpg-error		abi_x86_32
+sys-libs/ncurses		-minimal abi_x86_32
+media-sound/apulse	 	abi_x86_32
+media-libs/alsa-lib	 	abi_x86_32
+x11-base/xwayland	 	libei
+media-libs/libepoxy		X
+games-util/steam-launcher	desktop-portal dialogs joystick steamruntime udev wayland trayicon -steamvr
+x11-libs/libvdpau 		abi_x86_32
+media-video/pipewire		sound-server jack-sdk echo-cancel pipewire-alsa -flatpak -v4l 
+media-libs/vulkan-loader	X layers
+media-libs/vulkan-layers	X
+dev-libs/bemenu			-ncurses
+media-video/wireplumber		lua_single_target_lua5-4
+# required by virtual/rust-1.77.1::gentoo
+# required by dev-python/adblock-0.6.0::gentoo
+# required by www-client/qutebrowser-3.1.0-r1::gentoo[adblock,python_single_target_python3_12]
+# required by @selected
+# required by @world (argument)
+>=dev-lang/rust-bin-1.77.1 abi_x86_32

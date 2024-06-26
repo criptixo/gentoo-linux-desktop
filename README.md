@@ -1,261 +1,136 @@
-<h1 align="center">My Arch Linux System</h1>
-
-<img src="/screenshots/screenshot1.png" width="100%" />
-
-
-
-# Overview
-
-## key features:
-- Encrypted LUKS on LVM 
-- Silent systemd-boot
-- Auto starting sway
-- Decrypting and mounting raid on boot
-- Uses run0
-
-## Theme & Colorscheme
-
-- GTK Theme: [placeholder](placeholder)
-- Colorscheme: [placeholder](placeholder)
-- Icons :[placeholder](placeholder)
-- Font: [Terminus](https://terminus-font.sourceforge.net/)
-- I don't use any QT theme because the only qt6 build software that i currently use is qutebrowser and OBS-Studio.
-- I don't use any custom curosr.
-
-## Software
-
-- Operating System: [Arch Linux](https://archlinux.org/)
-- Window Manager: [Sway](https://github.com/swaywm/sway)
-- Status Bar: [sway-bar](https://github.com/swaywm/sway)
-- Terminal: [foot](https://codeberg.org/dnkl/foot)
-- Launcher: [tofi](https://github.com/philj56/tofi)
-- Browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser)
-- File Manager: [ranger](https://github.com/gokcehan/lf)
-- Notifications: [mako](https://github.com/emersion/mako)
-- Video Player: [mpv](https://github.com/mpv-player/mpv)
-- Music Player: [rhythmbox](https://gitlab.gnome.org/GNOME/rhythmbox)
-- BitTorrent: [transmission](https://github.com/transmission/transmission)
-- Video Editor: [Pitivi](https://github.com/pitivi/pitivi)
-
-
-# System Install
-
-## 1.Paritioning
-`lsblk`
-
+## partitioning 
 `cfidsk /dev/sda`
-
-<img src="/screenshots/lsblk.png" width="100%" />
 
 ## setup lvm 
 `pvcreate /dev/sda2`
-
 `vgcreate vg0 /dev/sda2`
-
-`lvcreate -l 100%FREE -n cryptroot vg0`
+`lvcreate -l 100%FREE -n troot vg0`
 
 ## setup luks
 `cryptsetup luksFormat --type luks2 --cipher aes-xts-plain64 --key-size 256 --hash sha256 /dev/vg0/cryptroot`
+`cryptsetup open /dev/vg0/root root`
 
-`cryptsetup open /dev/vg0/cryptroot root`
-        
 ## formatting
-`mkfs.fat -F32 /dev/sda1`               
-
+`mkfs.fat -F32 /dev/sda1`
 `mkfs.ext4 /dev/mapper/root`
 
 ## mounting
-`mount /dev/mapper/root /mnt`
+`mount /dev/mapper/root /mnt/gentoo`
+`mkdir /mnt/gentoo/boot`
+`mount /dev/sda1 /mnt/gentoo/boot`
 
-`mount /dev/sda1 /mnt/boot`
-                    
-## setting up the chroot
-`pacstrap -K /mnt base linux linux-firmware intel-ucode lvm2 dhcpcd neovim man bash`
+## installing source files
+`cd /mnt/gentoo`
+choose systemd stage3 profile `links https://www.gentoo.org/downloads/#other-arches`
+`tar xpvf stage3-*.tar.xz --xattrs-include='*.*' --numeric-owner`
 
-`genfstab -U /mnt >> /mnt/etc/fstab`
+## chrooting
+`cp --dereference /etc/resolv.conf /mnt/gentoo/etc/`
+`arch-chroot /mnt/gentoo`
 
-`arch-chroot /mnt`
-
-## basic system setup
-`ln -sf /usr/share/Africa/Algeries`
-
+## installing
+`emerge-webrsync`
+`eselect profile list`
+`echo Africa/Algiers > /etc/timezone`
+`emerge --config sys-libs/timezone-data`
 `hwclock --systohc`
-
-`nvim /etc/locale.gen`
-```
-...
-en_US.UTF-8 UTF-8
-...
-```
-
-`locale-gen` 
-
-`localectl set-locale LANG=en_US.UTF-8`
+`nano -w /etc/locale.gen` 
+`locale-gen`
+`eselect locale list`
+`eselect locale set 4`
+`env-update`
+`source /etc/profile`
 
 `hostnamectl hostname navi`
+`systemd-machine-id+set`
+`systemd-firstboot --prompt`
+`systemctl preset-all --preset-mode=enable-only
 
-`passwd`
+## config fstab
+`nano /etc/fstab`
 
-## setup mkinitcpio
-`nvim /etc/mkinitcpio.conf`
 ```
-...
-HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block lvm2 encrypt filesystems fsck)
-...
-COMPRESSION=cat       
-...
+/dev/mapper/root		/		    ext4		rw		    0 1
+/dev/sda1			    /boot		vfat		rw		    0 2
+/swapfile			    none 		swap 		sw	        0 0
 ```
+## create the swapfile
+...
 
-`mkinitcpio -P`
+## configuring portage
+`emerge -av dev-vcs/git`
+`cd /etc/portage/
+`rm -rf make.conf package.use package.env package.accept_keywords package.mask`
+`mkdir /etc/porage/env`
+`cd`
+`git clone https://github.com/criptixo/gentoo-linux-desktop`
+`cd gentoo-linux-desktop`
+`mv gentoo-linux-desktop/portage/* /etc/portage/`
+
+## needed install software
+
+`emerge -av net-misc/dhcpcd sys-fs/cryptsetup sys-fs/lvm2 app-shells/bash`
+
+## rebuild the system with new portage options this might take a long time
+`emerge -e @world`
+`emrege --depclean
+
+
+## install kernel
+
+`emerge -av sys-kernel/gentoo-sources sys-kernel/genkernel`
+`eselect kernel list`
+`eselect kernel set 1`
+
+`nano -w /etc/genkernel.conf`
+
+enable lvm and luks
+
+genkernel --loglevel=5 all
 
 ## bootloader setup
-`bootctl install`
+`nano -w /etc/lvm/lvm.conf`
+`volume_list = ["vg0"]`
 
-`nvim /boot/loader/loader.conf`
+`emerge -av sys-libs/efivar`
+`bootctl --path=/boot install`
 
-```
-default arch.conf
-timeout 0
-```
+`import systemd-boot stuff`
 
-`nvim /boot/loader/entries/arch.conf`
+## setup a password
+`passwd`
 
-```
-title arch
-linux /vmlinuz-linux
-initrd /initramfs-linux.img
-options cryptdevice=/dev/vg0/root:root root=/dev/mapper/root rw quiet loglevel=3 vt.global_cursor_default=0 mitigations=off
-```
-                
-`nvim /boot/loader/entries/arch-fallback.conf`
-```
-title arch
-linux /vmlinuz-linux
-initrd /initramfs-linux.img
-options cryptdevice=/dev/vg0/root:root root=/dev/mapper/root rw quiet loglevel=3 vt.global_cursor_default=0 mitigations=off
-```
-
-## fstab setup
-`nvim /etc/fstab`
-
-```
-/dev/mapper/root				/         	ext4      	rw,relatime						0 1
-UUID=UUID      				/boot      	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
-#/swapfile 					none 		swap 		defaults						      0 0
-```
-
-
-## adding raid system
-
-
-## reboot
-login as root
-
-## enble dhcpcd to get internet                    
-`systemctl enable --now dhcpcd.service`
-
-## create a user
-`useradd -m -G wheel video audio -s bash criptixo`
-
+## setup a user
+`useradd -m -G users,wheel,audio,video -s /bin/bash criptixo`
 `passwd criptixo`
 
-## configure pacman.conf
-`nvim /etc/pacman.conf`
+## setup doas
+`emerge -av app-admin/doas`
+`touch /etc/doas.conf`
+`chown -c root:root /etc/doas.conf`
+`chmod -c 0400 /etc/doas.conf`
 
-```
+`nvim /etc/doas.conf`
+`permit :wheel`
+`emerge --sync`
+
+## setup autologin
+`emerge -av gui-libs/greetd`
 ...
-Color
-...
-ParallelDownloads = 5
-...
-[multilib]
-Include = /etc/pacman.d/mirrorlist
-...
-```
+`systemctl enable greetd.service`
 
-## login as user
-exit
+## setup sway env
+`emerge -av swaybg foot grim slurp terminus-font`
 
-## install the software
-`run0 pacman -S sway polkit swaybg grim mako foot terminus-font slurp playerctl xdg-desktop-portal xdg-portal-wlr mate-polkit cliphist gnome-themes-extra xdg-user-dirs xorg-xwayland`
+## steam 
+`emerge --ask --noreplace app-eselect/eselect-repository`
+`eselect repository enable steam-overlay`
+`emerge --sync`
+`emerge steam-launcher`
 
-## starting sway                    
-`run0 nvim /usr/local/start-sway`
-```
-#!/bin/sh
-export XDG_SESSION_TYPE=wayland
-export XDG_SESSION_DESKTOP=sway
-export XDG_CURRENT_DESKTOP=sway
-                    
-# Wayland stuff
-export QT_QPA_PLATFORM=wayland
-export SDL_VIDEODRIVER=wayland
-export _JAVA_AWT_WM_NONREPARENTING=1
-                    
-# Dark mode
-GTK_THEME=Adwaita:dark
-GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc 
-QT_STYLE_OVERRIDE=Adwaita-Dark
-                    
-exec sway "$@"
-```
-## configuring auto-start
-`run0 chmod +x /usr/local/bin/start-sway`
+## audio
+`emerge -av pipewire libpulse wireplumber pulsemixer`
+`systemctl --user enable --now pipewire-pulse.socket wireplumber.service`
 
-`pacman -S greetd`
-
-`run0 sudo nvim /etc/greetd/config.toml`
-```
-...
-[initial_session]
-command = "/usr/local/bin/start-sway"
-user = "criptixo"
-```
-
-## adding the user dotfiles
-`run0 pacman -S git`
-
-`git clone https://github.com/criptixo/dotfiles`
-
-`mkdir .config`
-
-`mv dotfiles/.config/* ~/.config/`
-                    
-## application launcher
-`run0 pacman -S base-devel`
-
-`cd`
-
-`git clone https://aur.archlinux.org/packages/tofi`
-
-`cd tofi`
-
-`run0 makepkg -si` 
-  
-## audio 
-                    
-`run0 pacman -S wireplumber pipewire pipewire-pulse pipewire-audio pipewire-jack helvum pavucontrol`
-
-`systemctl --user enable --now pipewire-pulse.socket`
-                    
-## docker 
-`run0 pacman -S docker`
-
-`run0 systemctl enable docker.socket`
-
-`run0 usermod -aG docker criptixo`
-
-`run0 chmod 666 /var/run/docker.sock`
-
-## media players
-`run0 pacman -S mpv rhythmbox`
-
-## screen recorder 
-`run0 pacman -S obs-studio`
-                    
-## set up gaming via steam
-`run0 pacman -S vulkan-radeon lib32-vulkan-radeon radeontop xf86-video-amdgpu steam`
-                    
-## install misc software
-`run0 pacman -S qutebrowser transmission-gtk nicotine pitivi gimp`
-
+## stuff
+`emerge -av vulkan-loader neovim playerctl wl-clipboard nicotine+ bemenu ranger zip unzip`

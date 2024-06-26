@@ -1,0 +1,19 @@
+x11-libs/libdrm  	video_cards_radeon
+www-client/qutebrowser 	qt6 adblock widevine -pdf
+dev-qt/qtbase		icu
+dev-python/PyQt6	opengl qml webchannel
+dev-libs/libxm		icu
+sys-libs/zlib		minizip
+media-libs/libva	X
+dev-qt/qtbase           opengl
+dev-qt/qttools		opengl
+# required by dev-qt/qtdeclarative-6.7.1::gentoo
+# required by dev-qt/qtwebengine-6.7.1::gentoo
+# required by dev-python/PyQt6-WebEngine-6.7.0::gentoo
+# required by www-client/qutebrowser-3.1.0-r1::gentoo[python_single_target_python3_12,qt6]
+# required by qutebrowser (argument)
+>=dev-qt/qtbase-6.7.1 -opengl
+# required by dev-python/PyQt6-WebEngine-6.7.0::gentoo[widgets]
+# required by www-client/qutebrowser-3.1.0-r1::gentoo[python_single_target_python3_12,qt6]
+# required by qutebrowser (argument)
+>=dev-python/PyQt6-6.7.0 -opengl
