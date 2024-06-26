@@ -55,6 +55,7 @@
   - [extra software](#extra-software)
    - [steam](#steam)
    - [qutebrowser](#qutebrowser)
+   - [irssi](#irssi)
 - [last notes](#last-notes)
 
 ## Introduction
@@ -529,6 +530,10 @@ emerge steam-launcher
 ### qutebrowser
 ```shell
 emerge --ask qutebrowser
+```
+### irssi
+```shell
+emerge --ask irssi
 ```
 
 ### Unfinished
