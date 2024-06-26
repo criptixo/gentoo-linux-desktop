@@ -1,64 +1,23 @@
 # My Gentoo Linux System
 
-![screenshot](./screenshots/rice.png)
+<h1 align="center">
+<img src="./screenshots/rice.png?raw=true" height="700">
+</h1>
 
-- [Gentoo install guide](#gentoo-install-guide)
-  - [Introduction](#introduction)
-  - [Installation concerns](#concerns)
-  - [Start live-cd environment](#boot-gentoo-live-cd)
-  - [Setting Up Hard Drive](#setting-up-hard-drive)
-    - [Partitioning](#partitioning)
-    - [Create LVM](#create-lvm)
-    - [Create LUKS](#create-luks)
-    - [Create File Systems](#create-file-systems)
-    - [Mount the filesystems](#mount-the-filesystems)
-  - [Installing the Gentoo base system](#installing-the-gentoo-base-system)
-    - [Install the stage3 tarball](#install-the-stage3-tarball)
-    - [Unpack the tarball](#unpack-the-tarball)
-    - [Selecting Mirrors](#selecting-mirrors)
-    - [Copy DNS Info](#copy-dns-info)
-    - [Chrooting](#chrooting)
-    - [configuring portage](#configuring-portage)
-      - [dsfdsfdsfs](#dfsfdsfdsfds)
-      - [dsfdsfsfdsfds](#dfsfsdfdsfds)
-    - [choosing-systemd-profile](#choosing-systemd-profile)
-    - [re-compile](#re-compile)
-  - [Configuring the base system](#configuring-the-base-system)
-    - [Timezone](#Timezone)
-    - [locale](#locale)
-    - [hostname](#hostname)
-    - [firmware](#firmware)
-    - [microcode](#microcode)
-    - [Installing the kernel](#installing-the-kernel)
-        - [gentoo sources](#gentoo-sources)
-        - [genkernel](#genkernel)
-        - [Configuring the modules](#configuring-the-modules)
-    - [LVM Configuration](#lvm-configuration)
-    - [Creating-Swap](#creating-swap)
-    - [fstab](#fstab)
-    - [crypttab](#crypttab)
-    - [systemd-boot](#systemd-boot)
-    - [Efibootmgr](#efibootmgr)
-    - [passwd](#passwd)
-    - [passwd](#passwd)
-    - [install needed software](#install-needed-software)
-  - [Post Installation](#post-installation)
-    - [First Boot](#first-boot)
-    - [Add a user](#add-a-user)
-    - [Configuring Network](#configuring-network)
-  - [Sway-DE](#sway-de)
-   - [installing-sway](#installin-sway)
-   - [starting-sway](#starting-sway)
-   - [auto login](#auto-login)
-   - [audio](#audio)
-  - [extra configurations](#extra-configurations)
-  - [extra software](#extra-software)
-   - [steam](#steam)
-   - [qutebrowser](#qutebrowser)
-   - [irssi](#irssi)
-- [last notes](#last-notes)
-
-## Introduction
+<p align="center">
+    <a href="https://www.meetup.com/pro/umbraco">
+        <img src="./screenshots/linux-powered.gif"
+             alt="">
+    </a>
+    <a href="">
+        <img src="./screenshots/linx.gif"
+             alt="">
+    </a>
+    <a href="">
+        <img src="./screenshots/nclinux.gif"
+             alt="">
+    </a>
+</p>
 
 My Gentoo linux system guide.
 
@@ -68,9 +27,60 @@ key features:
 * 
 * 
 
-## Concerns
+text text text. 
 
 > Stop before further reading.
+
+**Content**
+
+* [**Gentoo install guide**](#gentoo-install-guide)
+  * [**boot gentoo live cd**](#boot-gentoo-live-cd)
+  * [**Setting up the Hard Drive**](#setting-up-hard-drive)
+    - [**Partitioning**](#partitioning)
+    - [**Create LVM**](#create-lvm)
+    - [**Create LUKS**](#create-luks)
+    - [**Creating File Systems**](#create-file-systems)
+    - [**Mount the filesystems**](#mount-the-filesystems)
+  * [**Installing the Gentoo base system**](#installing-the-gentoo-base-system)
+    - [**Install the stage3 tarball**](#install-the-stage3-tarball)
+    - [**Selecting Mirrors**](#selecting-mirrors)
+    - [**Chrooting**](#chrooting)
+  * [**configuring portage**](#configuring-portage)
+    - [**text**](#text)
+    - [**text**](#text)
+    - [**choosing-systemd-profile**](#choosing-systemd-profile)
+    - [**re-compile**](#re-compile)
+  * [**Configuring the base system**](#configuring-the-base-system)
+    - [**Timezone/locale/hostname**](#Timezone/locale/hostnamee)
+    - [**firmware/microcode**](#firmware/microcode)
+    - [**Installing the kernel**](#installing-the-kernel)
+        - [**gentoo sources**](#gentoo-sources)
+        - [**genkernel**](#genkernel)
+        - [**Configuring the modules**](#configuring-the-modules)
+    - [**LVM Configuration**](#lvm-configuration)
+    - [**Creating-Swap**](#creating-swap)
+    - [**fstab**](#fstab)
+    - [**crypttab**](#crypttab)
+    - [**systemd-boot**](#systemd-boot)
+    - [**Efibootmgr**](#efibootmgr)
+    - [**passwd**](#passwd)
+    - [**install needed software**](#install-needed-software)
+  * [**Post Installation**](#post-installation)
+    - [**First Boot**](#first-boot)
+    - [**Add a user**](#add-a-user)
+    - [**Configuring Network**](#configuring-network)
+  * [**Sway-DE**](#sway-de)
+   - [**installing-sway**](#installin-sway)
+   - [**starting-sway**](#starting-sway)
+   - [**auto login**](#auto-login)
+   - [**audio**](#audio)
+  * [**extra configurations**](#extra-configurations)
+  * [**extra software**](#extra-software)
+   - [**steam**](#steam)
+   - [**qutebrowser**](#qutebrowser)
+   - [**irssi**](#irssi)
+* [**Acknowledgments**](#acknowledgments)
+
 
 ## Boot Gentoo live cd
 
@@ -128,8 +138,7 @@ Choose systemd stage3 profile:
 ```shell 
 links https://www.gentoo.org/downloads/#other-arches
 ```
-### Unpack the tarball
-Unpack:
+Unpack the tarball:
 ```shell
 tar xpvf stage3-*.tar.xz --xattrs-include='*.*' --numeric-owner
 ```
@@ -141,13 +150,12 @@ Gentoo uses the closes mirror to sync the packages index, so setting the best mi
 mirrorselect -D -s4 -o >> /mnt/gentoo/etc/portage/make.conf
 ```
 
-### Copy DNS info
-
+### Chrooting
+Copy DNS info:
 ```shell
 cp --dereference /etc/resolv.conf /mnt/gentoo/etc/
 ```
 
-### Chrooting
 Chroot into the new environment:
 ```shell
 arch-chroot /mnt/gentoo
@@ -155,38 +163,32 @@ source /etc/profile
 export PS1="(chroot) $PS1"
 ```
 
-### configuring portage
-1.  kejkl
-;ldfksd;lfksd
-l;kdfsl;
+## configuring portage
+1.  text
+text
+text
 
-2. kldjfkldsjfls
-df;kljsdjk
-;lsdfj
+2. text
+text
+text
 
-3. dklfjsdlkfj
-;kljdfkls;jf
-kl;djfslk
+```shell
+emerge -av dev-vcs/git
+cd /etc/portage/
+rm -rf make.conf package.use package.env package.accept_keywords package.mask
+mkdir /etc/porage/env
+cd
+git clone https://github.com/criptixo/gentoo-linux-desktop
+cd gentoo-linux-desktop
+mv gentoo-linux-desktop/portage/* /etc/portage/
+```
 
-4. dkfjsdlkfjds
-;lkdjfs;kfs
-ds;lfkds;lf
-;dlsk
 
-`emerge -av dev-vcs/git`
-`cd /etc/portage/`
-`rm -rf make.conf package.use package.env package.accept_keywords package.mask`
-`mkdir /etc/porage/env`
-`cd`
-`git clone https://github.com/criptixo/gentoo-linux-desktop`
-`cd gentoo-linux-desktop`
-`mv gentoo-linux-desktop/portage/* /etc/portage/`
-
-### Updating Portage tree
-Then update the snapshot with the latest version of the repository:
-`emerge-webrsync`
 
 ### Choosing systemd profile
+update the snapshot with the latest version of the repository:
+`emerge-webrsync`
+
 List the available profiles:
 ```shell
 eselect profile list
@@ -211,12 +213,15 @@ emerge --ask --verbose --update --deep --newuse @world
 ## Configuring the base system
 In addition to Portage, some other options should be configured.
 
-### Timezone
-`echo Africa/Algiers > /etc/timezone`
-`emerge --config sys-libs/timezone-data`
-`hwclock --systohc`
+### Timezone/locale/hostname
+setup timezone
+```shell
+echo Africa/Algiers > /etc/timezone
+emerge --config sys-libs/timezone-data
+hwclock --systohc
+```
 
-### Locale
+setup locale
 ```shell
 nano -w /etc/locale.gen 
 locale-gen
@@ -226,16 +231,17 @@ env-update
 source /etc/profile
 ```
 
-### hostname 
+setup hostname 
 ```shell
 hostnamectl hostname navi
 ```
 
-### firmware
+### firmware/microcode
+firmware:
 ```shell
 emerge --ask sys-kernel/linux-firmware
 ```
-### microcode
+microcode:
 
 ### Installing the kernel
 
@@ -541,5 +547,4 @@ emerge --ask irssi
 emerge -av vulkan-loader nicotine+
 ```
 
-## Last notes
-enjoy.
+## Acknowledgments
