@@ -182,32 +182,32 @@ CPU_FLAGS_X86="aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sse sse2 s
 ```
 2. package.use
 ```shell
-sys-apps/systemd 		    cryptsetup boot
-x11-libs/libdrm  		    video_cards_radeon
-sys-process/htop		    lm-sensors
-media-gfx/imv 			    -X
-www-client/qutebrowser 	    qt6 adblock widevine -pdf
-dev-python/PyQt6		    qml webchannel
-sys-libs/zlib			    minizip
-media-libs/libva		    X
-x11-libs/libxkbcommon 	    X
-media-libs/libglvnd		    X
-gui-apps/swaybg		        gdk-pixbuf
-gui-wm/sway			        X swaybar
-gui-libs/wlroots		    X
-media-libs/mesa  		    X
-sys-apps/dbus 			    X
-sys-apps/util-linux 	    cryptsetup 
-ibs/ncurses		            -minimal 
-x11-base/xwayland		    libei
-media-libs/libepoxy		    X
-media-video/pipewire	    sound-server pipewire-alsa echo-cancel -ffmpeg 
-media-libs/vulkan-loader    X layers
-media-libs/vulkan-layers	X
-dev-libs/bemenu			    -ncurses
-media-libs/libaom		    -examples 
-sys-libs/glibc			    stack-realign -mstackrealign
-x11-libs/cairo 			    X 
+sys-apps/systemd 		        cryptsetup boot
+x11-libs/libdrm  		        video_cards_radeon
+sys-process/htop		        lm-sensors
+media-gfx/imv 			        -X
+www-client/qutebrowser 	        qt6 adblock widevine -pdf
+dev-python/PyQt6		        qml webchannel
+sys-libs/zlib			        minizip
+media-libs/libva		        X
+x11-libs/libxkbcommon 	        X
+media-libs/libglvnd		        X
+gui-apps/swaybg		            gdk-pixbuf
+gui-wm/sway			            X swaybar
+gui-libs/wlroots		        X
+media-libs/mesa  		        X
+sys-apps/dbus 			        X
+sys-apps/util-linux 	        cryptsetup 
+ibs/ncurses		                -minimal 
+x11-base/xwayland		        libei
+media-libs/libepoxy		        X
+media-video/pipewire	        sound-server pipewire-alsa echo-cancel -ffmpeg 
+media-libs/vulkan-loader        X layers
+media-libs/vulkan-layers	    X
+dev-libs/bemenu			        -ncurses
+media-libs/libaom		        -examples 
+sys-libs/glibc			        stack-realign -mstackrealign
+x11-libs/cairo 			        X 
 
 ```
 TO DO:
