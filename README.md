@@ -43,7 +43,6 @@ key features:
     - [**Mount the filesystems**](#mount-the-filesystems)
   * [**Installing the Gentoo base system**](#installing-the-gentoo-base-system)
     - [**Install the stage3 tarball**](#install-the-stage3-tarball)
-    - [**Selecting Mirrors**](#selecting-mirrors)
     - [**Chrooting**](#chrooting)
   * [**configuring portage**](#configuring-portage)
     - [**text**](#text)
@@ -79,6 +78,7 @@ key features:
     - [**steam**](#steam)
     - [**qutebrowser**](#qutebrowser)
     - [**irssi**](#irssi)
+    - [**gimp**](#gimp)
 * [**Acknowledgments**](#acknowledgments)
 
 
@@ -132,9 +132,7 @@ Ensure the date and time are set correctly.
 ```shell
 chronyd -q
 ```
-```shell
-date
-```
+
 ### Install the stage3 tarball
 
 Choose systemd stage3 profile:
@@ -144,13 +142,6 @@ links https://www.gentoo.org/downloads/#other-arches
 Unpack the tarball:
 ```shell
 tar xpvf stage3-*.tar.xz --xattrs-include='*.*' --numeric-owner
-```
-
-### Selecting mirrors
-Gentoo uses the closes mirror to sync the packages index, so setting the best mirrors for your location is essential:
-
-```shell
-mirrorselect -D -s4 -o >> /mnt/gentoo/etc/portage/make.conf
 ```
 
 ### Chrooting
@@ -183,36 +174,20 @@ VIDEO_CARDS="amdgpu radeonsi"
 INPUT_DEVICES="libinput"
 CPU_FLAGS_X86="aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sse sse2 sse3 sse4_1 sse4_2 ssse3"
 ```
-2. package.use
+2. package.use/systemd
 ```shell
 sys-apps/systemd 		        cryptsetup boot
-x11-libs/libdrm  		        video_cards_radeon
-sys-process/htop		        lm-sensors
-media-gfx/imv 			        -X
-www-client/qutebrowser 	        qt6 adblock widevine -pdf
-dev-python/PyQt6		        qml webchannel
-sys-libs/zlib			        minizip
-media-libs/libva		        X
-x11-libs/libxkbcommon 	        X
-media-libs/libglvnd		        X
-gui-apps/swaybg		            gdk-pixbuf
-gui-wm/sway			            X swaybar
-gui-libs/wlroots		        X
-media-libs/mesa  		        X
-sys-apps/dbus 			        X
-sys-apps/util-linux 	        cryptsetup 
-ibs/ncurses		                -minimal 
-x11-base/xwayland		        libei
-media-libs/libepoxy		        X
-media-video/pipewire	        sound-server pipewire-alsa echo-cancel -ffmpeg 
-media-libs/vulkan-loader        X layers
-media-libs/vulkan-layers	    X
-dev-libs/bemenu			        -ncurses
-media-libs/libaom		        -examples 
-sys-libs/glibc			        stack-realign -mstackrealign
-x11-libs/cairo 			        X 
-
 ```
+package.use/util-linux
+
+```shell
+sys-apps/util-linux 	        cryptsetup 
+```
+
+
+
+
+
 TO DO:
 ```shell
 emerge -av dev-vcs/git
@@ -507,7 +482,34 @@ systemctl enable --now dhcpcd.service
 ### installing sway
 
 ```shell
-emerge -av swaybg foot grim slurp terminus-font mako wl-clipboard playerctl bemenu ranger neovim zip unzip
+emerge -av swaybg foot grim slurp terminus-font mako wl-clipboard playerctl bemenu ranger htop neovim zip unzip
+```
+
+package.use/sway
+```shell
+ibs/ncurses		                -minimal 
+x11-base/xwayland		        libei
+media-libs/libepoxy		        X
+media-video/pipewire	        sound-server pipewire-alsa echo-cancel -ffmpeg 
+media-libs/vulkan-loader        X layers
+media-libs/vulkan-layers	    X
+dev-libs/bemenu			        -ncurses
+media-libs/libaom		        -examples 
+x11-libs/cairo 			        X 
+x11-libs/libdrm  		        video_cards_radeon
+sys-process/htop		        lm-sensors
+media-gfx/imv 			        -X
+www-client/qutebrowser 	        qt6 adblock widevine -pdf
+dev-python/PyQt6		        qml webchannel
+sys-libs/zlib			        minizip
+media-libs/libva		        X
+x11-libs/libxkbcommon 	        X
+media-libs/libglvnd		        X
+gui-apps/swaybg		            gdk-pixbuf
+gui-wm/sway			            X swaybar
+gui-libs/wlroots		        X
+media-libs/mesa  		        X
+sys-apps/dbus 			        X
 ```
 
 ### Starting sway
@@ -572,7 +574,80 @@ eselect repository enable steam-overlay
 emerge --sync
 emerge steam-launcher
 ```
-
+package.use/steam-launcher
+```shell
+sys-apps/systemd 		      abi_x86_32
+sys-libs/zlib			        abi_x86_32
+media-libs/libva		      abi_x86_32 
+x11-libs/libX11  		      abi_x86_32
+x11-libs/libXau  		      abi_x86_32
+x11-libs/libxcb  		      abi_x86_32
+x11-libs/libXdmcp  		    abi_x86_32
+virtual/opengl  		      abi_x86_32
+media-libs/mesa  		      abi_x86_32 
+dev-libs/expat  		      abi_x86_32
+media-libs/libglvnd     	abi_x86_32
+x11-libs/libdrm  		      abi_x86_32
+x11-libs/libxshmfence  		abi_x86_32
+x11-libs/libXext  		    abi_x86_32
+x11-libs/libXxf86vm  		  abi_x86_32
+x11-libs/libXfixes  		  abi_x86_32
+app-arch/zstd  			      abi_x86_32
+sys-devel/llvm  		      abi_x86_32
+x11-libs/libXrandr  		  abi_x86_32
+x11-libs/libXrender  		  abi_x86_32
+dev-libs/libffi  		      abi_x86_32
+dev-libs/libxml2  		    abi_x86_32
+dev-libs/icu  			      abi_x86_32
+sys-libs/gpm  			      abi_x86_32
+virtual/libelf  		      abi_x86_32
+dev-libs/elfutils  		    abi_x86_32
+app-arch/bzip2  		      abi_x86_32
+dev-libs/nspr  			      abi_x86_32
+dev-libs/nss  			      abi_x86_32
+net-libs/libndp  		      abi_x86_32
+x11-libs/extest 		      abi_x86_32
+dev-libs/libevdev      		abi_x86_32
+dev-lang/rust-bin		      abi_x86_32
+dev-libs/wayland 		      abi_x86_32
+virtual/rust 			        abi_x86_32
+x11-libs/libpciaccess 		abi_x86_32
+sys-devel/clang 	      	abi_x86_32
+media-libs/fontconfig 		abi_x86_32
+sys-libs/libudev-compat 	abi_x86_32
+media-libs/libpulse 		  abi_x86_32
+media-libs/libsndfile 		abi_x86_32
+net-libs/libasyncns 	   	abi_x86_32
+sys-apps/dbus 		      	abi_x86_32 
+dev-libs/glib 			      abi_x86_32
+dev-libs/libpcre2 	    	abi_x86_32
+sys-apps/util-linux 		  abi_x86_32
+media-libs/flac 		      abi_x86_32
+media-libs/libogg 		    abi_x86_32
+media-libs/libvorbis 		  abi_x86_32
+media-libs/opus 		      abi_x86_32
+media-sound/lame 		      abi_x86_32
+media-sound/mpg123-base 	abi_x86_32
+media-libs/freetype 		  abi_x86_32
+media-libs/libpng 		    abi_x86_32
+virtual/libintl 		      abi_x86_32
+virtual/libudev 		      abi_x86_32
+sys-apps/systemd-utils 		abi_x86_32
+sys-libs/libcap 		      abi_x86_32
+sys-libs/pam 			        abi_x86_32
+virtual/libiconv 		       abi_x86_32
+x11-libs/xcb-util-keysyms 	abi_x86_32
+dev-db/sqlite			        abi_x86_32
+sys-libs/readline		      abi_x86_32
+sys-apps/lm-sensors		    abi_x86_32
+dev-libs/libgcrypt		    abi_x86_32
+app-arch/lz4			        abi_x86_32
+dev-libs/libgpg-error		  abi_x86_32
+sys-libs/ncurses		      abi_x86_32
+media-sound/apulse		    abi_x86_32
+media-libs/alsa-lib		    abi_x86_32
+x11-libs/libvdpau 		    abi_x86_32
+```
 ### qutebrowser
 ```shell
 emerge --ask qutebrowser
@@ -581,10 +656,21 @@ emerge --ask qutebrowser
 ```shell
 emerge --ask irssi
 ```
-
-### Unfinished
+### gimp
 ```shell
-emerge -av vulkan-loader nicotine+
+emerge --ask gimp
+```
+package.use/gimp
+```shell
+app-text/poppler		cairo
+media-libs/gegl			cairo
 ```
 
+### nicotine+
+```shell
+emerge -av nicotine+
+```
+
+
+emerge -av vulkan-loader
 ## Acknowledgments
