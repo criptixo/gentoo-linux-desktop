@@ -327,9 +327,7 @@ nano -w /etc/lvm/lvm.conf
 ```
 
 ```shell
-use_lvmetad = 1
-issue_discards = 1
-volume_list = ["vg0"] # Our VG volume name, check with vgdisplay
+volume_list = ["vg0"]
 ```
 
 ### Creating Swap
