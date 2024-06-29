@@ -669,6 +669,13 @@ media-libs/gegl			cairo
 emerge -av nicotine+
 ```
 
+### rtorrent
+```shell
+emerge -av rtorrent
+```
+
+
+
 
 emerge -av vulkan-loader
 ## Acknowledgments
